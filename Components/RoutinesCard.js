@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-const RoutinesCard = ({ img, Title, sub, Time }) => {
+const RoutinesCard = ({ Press,img, Title, sub, Time }) => {
   function maxWord(str) {
     let length = str.length;
 
@@ -20,7 +20,7 @@ const RoutinesCard = ({ img, Title, sub, Time }) => {
 
   return (
     <TouchableOpacity
-      
+      onPress={Press}
       style={{
         width: 350,
         height: 74,
