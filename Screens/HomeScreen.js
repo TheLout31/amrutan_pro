@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import {
   View,
   Text,
@@ -6,14 +6,19 @@ import {
   Image,
   TextInput,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import RoutinesCard from "../Components/RoutinesCard";
+import RoutinesScreen from "./RoutinesScreen";
+
+
 
 const HomeScreen = () => {
+  const [clicked, setClicked] = useState(false);
+  
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View
         style={{
           flexDirection: "row",
@@ -66,13 +71,6 @@ const HomeScreen = () => {
             <Ionicons name="chevron-forward" size={20}></Ionicons>
           </View>
         </View>
-
-        {/* <View style={{backgroundColor:'white',flex:2}}>
-          <Image
-            source={require("../assets/counter.png")}
-            style={styles.counterimage}
-          />
-        </View> */}
       </View>
 
       <View style={{ width: 278, height: 45, left: 28, marginBottom: 30 }}>
@@ -94,6 +92,7 @@ const HomeScreen = () => {
       </View>
 
       <RoutinesCard
+        
         img={require("../assets/DrinkingWater.jpg")}
         Title="Drinking Water"
         sub="Consumable"
@@ -104,13 +103,14 @@ const HomeScreen = () => {
         style={{
           height: 0.6,
           width: "90%",
-          backgroundColor: "#A0A0A0",
+          backgroundColor: "#E7E7E7",
           left: 16,
         }}
       >
         <Text></Text>
       </View>
       <RoutinesCard
+        
         img={require("../assets/saloon.jpg")}
         Title="Amuratan Kuntal Hair Care"
         sub="Consumable"
@@ -121,7 +121,7 @@ const HomeScreen = () => {
         style={{
           height: 0.6,
           width: "90%",
-          backgroundColor: "#A0A0A0",
+          backgroundColor: "#E7E7E7",
           left: 16,
         }}
       >
@@ -129,14 +129,15 @@ const HomeScreen = () => {
       </View>
 
       <TouchableOpacity
-      onPress={()=>{
-        alert("Pressed")
-      }}
+        onPress={() => {
+          setClicked(!clicked);
+        }}
         style={{
           width: 350,
           height: 19,
           left: 26,
           marginTop: 20,
+          marginBottom: 10,
           flexDirection: "row",
           justifyContent: "space-between",
         }}
@@ -151,8 +152,15 @@ const HomeScreen = () => {
         >
           More Routines (2)
         </Text>
-        <Ionicons name="chevron-down" size={20} />
+        {clicked ? (
+          <Ionicons name="chevron-down" size={20} />
+        ) : (
+          <Ionicons name="chevron-up-outline" size={20} />
+        )}
       </TouchableOpacity>
+      
+      {clicked ? <RoutinesScreen /> : null}
+      
     </ScrollView>
   );
 };
@@ -161,11 +169,10 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#fff", // adjust as needed
   },
   imageContainer: {
-    height: "30%", // Take 30% of the screen's   height
+    height: "40%", // Take 30% of the screen's   height
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
@@ -207,7 +214,6 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   input: {
-    flex: 1,
     fontSize: 16,
     color: "black",
   },

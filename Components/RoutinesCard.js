@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, StyleSheet, Image, TextInput, Button } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 const RoutinesCard = ({ img, Title, sub, Time }) => {
@@ -19,7 +19,8 @@ const RoutinesCard = ({ img, Title, sub, Time }) => {
   }
 
   return (
-    <View
+    <TouchableOpacity
+      
       style={{
         width: 350,
         height: 74,
@@ -38,12 +39,35 @@ const RoutinesCard = ({ img, Title, sub, Time }) => {
       </View>
 
       <View style={{ marginRight: 50, width: 188, height: 50 }}>
-        <Text style={{ fontSize: 18, fontWeight: "600", marginBottom: 5,fontFamily: "SemiBold", }}>
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: "600",
+            marginBottom: 5,
+            fontFamily: "SemiBold",
+          }}
+        >
           {maxWord(Title)}
         </Text>
         <View style={{ flexDirection: "row" }}>
-          <Text style={{ fontSize: 10, fontWeight: "200",fontFamily: "Nunito", }}>{sub}</Text>
-          <Text style={{ fontSize: 10, fontWeight: "500", marginLeft: 10,fontFamily: "Nunito", }}>
+          <Text
+            style={{
+              fontSize: 10,
+              fontWeight: "200",
+              fontFamily: "Nunito",
+              color: "#A0A0A0",
+            }}
+          >
+            {sub}
+          </Text>
+          <Text
+            style={{
+              fontSize: 10,
+              fontWeight: "500",
+              marginLeft: 10,
+              fontFamily: "Nunito",
+            }}
+          >
             {Time} AM
           </Text>
         </View>
@@ -52,7 +76,7 @@ const RoutinesCard = ({ img, Title, sub, Time }) => {
       <View>
         <Ionicons name="chevron-forward" size={24} color="black" />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
