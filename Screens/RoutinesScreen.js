@@ -38,7 +38,8 @@ const RoutinesScreen = () => {
           justifyContent: "space-between",
           alignItems: "center",
           width: 342,
-          height: 21,
+          // backgroundColor:'yellow',
+          padding: 5,
         }}
       >
         <Text style={styles.titleTXT}>Explore</Text>
@@ -51,6 +52,57 @@ const RoutinesScreen = () => {
         >
           More
         </Text>
+      </View>
+
+      <View style={{ width: 440, height: 35, top: 10, flexDirection:'row', justifyContent:'space-around',}}>
+        <View style={{ backgroundColor: "#E4FFE4", alignItems: "center", height:35 , borderRadius:20, padding:5}}>
+          <Text
+            style={{
+              fontFamily: "SemiBold",
+              color: "black",
+              fontSize: 15,
+            }}
+          >
+            All
+          </Text>
+        </View>
+
+        <View style={{ borderWidth:0.5,borderColor:'#A0A0A0',alignItems: "center", height:35 , borderRadius:20, padding:5}}>
+          <Text
+            style={{
+              fontFamily: "SemiBold",
+              color: "#A0A0A0",
+              fontSize: 15,
+            }}
+          >
+            Created by Dr.
+          </Text>
+        </View>
+
+        <View style={{  borderWidth:0.5,borderColor:'#A0A0A0',alignItems: "center", height:35 , borderRadius:20, padding:5}}>
+          <Text
+            style={{
+              fontFamily: "SemiBold",
+              color: "#A0A0A0",
+              fontSize: 15,
+            }}
+          >
+            Created by me
+          </Text>
+        </View>
+
+        <View style={{  borderWidth:0.5,borderColor:'#A0A0A0',alignItems: "center", height:35 , borderRadius:20, padding:5}}>
+          <Text
+            style={{
+              fontFamily: "SemiBold",
+              color: "#A0A0A0",
+              fontSize: 15,
+            }}
+          >
+            Imported
+          </Text>
+        </View>
+
       </View>
     </View>
   );
@@ -66,7 +118,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "700",
     fontFamily: "SemiBold",
-    marginBottom: 10,
-    marginRight: 10,
+    // marginBottom: 10,
+    // marginRight: 10,
   },
 });

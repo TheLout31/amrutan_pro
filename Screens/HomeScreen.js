@@ -8,15 +8,19 @@ import {
   ScrollView,
   TouchableOpacity,
   Button,
+  Modal,
+  Pressable,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import RoutinesCard from "../Components/RoutinesCard";
 import RoutinesScreen from "./RoutinesScreen";
 import RBSheet from "react-native-raw-bottom-sheet";
 import BtmSheetContent from "../Components/BtmSheetContent";
+import ModalContent from "../Components/ModalContent";
 
 const HomeScreen = () => {
   const [clicked, setClicked] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const refRBSheet = useRef();
 
   const openBottomSheet = () => {
@@ -25,7 +29,12 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.mainCont}>
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.container}
+        showsVerticalScrollIndicator={false}
+        alwaysBounceVertical={true}
+        contentContainerStyle={styles.contentContainer}
+      >
         <View
           style={{
             flexDirection: "row",
@@ -72,7 +81,15 @@ const HomeScreen = () => {
               Check out your Health Activity
             </Text>
             <View style={styles.contBtn}>
-              <Text style={{ fontSize: 16, color: "#3A643B" }}>My Health</Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: "#3A643B",
+                  fontFamily: "SemiBold",
+                }}
+              >
+                My Health
+              </Text>
               <Ionicons name="chevron-forward" size={20}></Ionicons>
             </View>
           </View>
@@ -167,10 +184,28 @@ const HomeScreen = () => {
         {clicked ? <RoutinesScreen /> : null}
       </ScrollView>
 
+      {/* Modal */}
+
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <ModalContent press={() => setModalVisible(!modalVisible)} />
+          </View>
+        </View>
+      </Modal>
+
       {/* BOTTOM SHEET */}
       <Button
         title="New Routine"
-        // onPress={() => refRBSheet.current.open()}
+        onPress={() => setModalVisible(true)}
         color="#3A643B"
         fontFamily="SemiBold"
       />
@@ -215,9 +250,13 @@ const styles = StyleSheet.create({
   mainCont: {
     flex: 1,
   },
+  contentContainer: {
+    paddingVertical: 30,
+  },
   container: {
     flex: 1,
-    backgroundColor: "#fff", // adjust as needed
+    backgroundColor: "#fff",
+    // adjust as needed
   },
   imageContainer: {
     height: "30%", // Take 30% of the screen's   height
@@ -318,5 +357,28 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingTop: 20,
     paddingBottom: 20,
+  },
+
+  modalView: {
+    top: 160,
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 24,
+    padding: 10,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 15,
+  },
+  centeredView: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
 });

@@ -1,10 +1,10 @@
 import React from "react";
-import { StyleSheet, View, Image, Text } from "react-native";
+import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import { ProgressBar } from "react-native-paper";
 
 const ProgressCard = ({ img, title, tltReminder, progressText, progress }) => {
   return (
-    <View style={styles.Container}>
+    <TouchableOpacity style={styles.Container}>
       <View style={styles.imgCont}>
         <Image
           source={img}
@@ -32,7 +32,7 @@ const ProgressCard = ({ img, title, tltReminder, progressText, progress }) => {
       <View style={styles.title}>
         <Text style={styles.progressText}>{progressText} </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
