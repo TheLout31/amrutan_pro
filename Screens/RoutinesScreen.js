@@ -1,8 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ProgressCard from "../Components/ProgressCard";
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
+import NewRoutinesCard from "../Components/NewRoutinesCard";
 
 const RoutinesScreen = () => {
+  let [Filter, setFilter] = useState("me");
+  let [Data, setData] = useState([]);
+
+  const getData = async () => {
+    try {
+      let res = await fetch(
+        `https://amrutam-quiz-api.azurewebsites.net/routines?filter=${Filter}`
+      );
+      let data = await res.json();
+      setData(data.routines);
+    } catch (e) {
+      alert(e);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, [Filter]);
   return (
     <View style={styles.MainContainer}>
       <Text
@@ -54,8 +79,26 @@ const RoutinesScreen = () => {
         </Text>
       </View>
 
-      <View style={{ width: 440, height: 35, top: 10, flexDirection:'row', justifyContent:'space-around',}}>
-        <View style={{ backgroundColor: "#E4FFE4", alignItems: "center", height:35 , borderRadius:20, padding:5}}>
+      <View
+        style={{
+          width: 440,
+          height: 35,
+          top: 10,
+          marginBottom: 20,
+          flexDirection: "row",
+          justifyContent: "space-around",
+        }}
+      >
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#E4FFE4",
+            alignItems: "center",
+            height: 35,
+            borderRadius: 20,
+            padding: 5,
+          }}
+          onPress={() => setFilter("")}
+        >
           <Text
             style={{
               fontFamily: "SemiBold",
@@ -65,9 +108,19 @@ const RoutinesScreen = () => {
           >
             All
           </Text>
-        </View>
+        </TouchableOpacity>
 
-        <View style={{ borderWidth:0.5,borderColor:'#A0A0A0',alignItems: "center", height:35 , borderRadius:20, padding:5}}>
+        <TouchableOpacity
+          style={{
+            borderWidth: 0.5,
+            borderColor: "#A0A0A0",
+            alignItems: "center",
+            height: 35,
+            borderRadius: 20,
+            padding: 5,
+          }}
+          onPress={() => setFilter("doctor")}
+        >
           <Text
             style={{
               fontFamily: "SemiBold",
@@ -77,9 +130,19 @@ const RoutinesScreen = () => {
           >
             Created by Dr.
           </Text>
-        </View>
+        </TouchableOpacity>
 
-        <View style={{  borderWidth:0.5,borderColor:'#A0A0A0',alignItems: "center", height:35 , borderRadius:20, padding:5}}>
+        <TouchableOpacity
+          style={{
+            borderWidth: 0.5,
+            borderColor: "#A0A0A0",
+            alignItems: "center",
+            height: 35,
+            borderRadius: 20,
+            padding: 5,
+          }}
+          onPress={() => setFilter("me")}
+        >
           <Text
             style={{
               fontFamily: "SemiBold",
@@ -89,9 +152,18 @@ const RoutinesScreen = () => {
           >
             Created by me
           </Text>
-        </View>
+        </TouchableOpacity>
 
-        <View style={{  borderWidth:0.5,borderColor:'#A0A0A0',alignItems: "center", height:35 , borderRadius:20, padding:5}}>
+        <View
+          style={{
+            borderWidth: 0.5,
+            borderColor: "#A0A0A0",
+            alignItems: "center",
+            height: 35,
+            borderRadius: 20,
+            padding: 5,
+          }}
+        >
           <Text
             style={{
               fontFamily: "SemiBold",
@@ -102,7 +174,17 @@ const RoutinesScreen = () => {
             Imported
           </Text>
         </View>
-
+      </View>
+      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+        {Data.map((item) => (
+          <NewRoutinesCard
+            // img={require("../assets/mountain.jpg")}
+            img={{ uri: item.image }}
+            title={item.title}
+            duration={item.duration}
+            progressText={item.creater}
+          />
+        ))}
       </View>
     </View>
   );
